@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 导航 · 发现最好的 AI 工具</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --white: #ffffff;
+      --off-white: #f7f6f3;
+      --gray-50: #f9f9f8;
+      --gray-100: #f0efec;
+      --gray-200: #e4e3de;
+      --gray-300: #cccbc4;
+      --gray-500: #8a8980;
+      --gray-700: #4a4945;
+      --gray-900: #1a1a18;
+      --accent: #1a1a18;
+      --accent-warm: #c8622a;
+      --accent-blue: #2c5f8a;
+      --tag-bg: #f0efec;
+      --tag-color: #6b6a62;
+      --card-border: #e8e7e2;
+      --ad-bg: #fffdf5;
+      --ad-border: #e8d9b0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--gray-900);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--gray-900);
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: -0.3px;
+    }
+
+    .logo span {
+      color: var(--accent-warm);
+    }
+
+    .search-wrap {
+      flex: 1;
+      max-width: 480px;
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 9px 16px 9px 40px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .search-wrap input:focus {
+      border-color: var(--gray-400, #aaa);
+      background: var(--white);
+    }
+
+    .search-wrap input::placeholder { color: var(--gray-500); }
+
+    .search-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-500);
+      pointer-events: none;
+    }
+
+    .header-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-submit {
+      padding: 8px 18px;
+      background: var(--gray-900);
+      color: var(--white);
+      border: none;
+      border-radius: 7px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.18s;
+      white-space: nowrap;
+    }
+
+    .btn-submit:hover { background: var(--gray-700); }
+
+    /* ── HERO BANNER AD ── */
+    .hero-ad {
+      background: var(--ad-bg);
+      border-bottom: 1px solid var(--ad-border);
+      padding: 14px 32px;
+      text-align: center;
+      font-size: 13.5px;
+      color: var(--gray-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-ad .ad-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      border: 1px solid var(--gray-300);
+      border-radius: 3px;
+      padding: 1px 5px;
+    }
+
+    .hero-ad a {
+      color: var(--accent-warm);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .hero-ad a:hover { text-decoration: underline; }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── HERO TITLE ── */
+    .hero {
+      padding: 56px 0 36px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: var(--gray-900);
+      margin-bottom: 14px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent-warm);
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--gray-500);
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* ── STATS BAR ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px 0 40px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--gray-900);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .content {
+      display: grid;
+      grid-template-columns: 220px 1fr 220px;
+      gap: 40px;
+      padding: 40px 0 60px;
+    }
+
+    /* ── SIDEBAR NAV ── */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+      align-self: start;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 12px;
+    }
+
+    .cat-list {
+      list-style: none;
+    }
+
+    .cat-list li {
+      margin-bottom: 2px;
+    }
+
+    .cat-list a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      border-radius: 7px;
+      text-decoration: none;
+      color: var(--gray-700);
+      font-size: 14px;
+      font-weight: 400;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .cat-list a:hover,
+    .cat-list a.active {
+      background: var(--gray-100);
+      color: var(--gray-900);
+      font-weight: 500;
+    }
+
+    .cat-list .cat-icon { font-size: 15px; }
+    .cat-list .cat-count {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--gray-500);
+      background: var(--gray-100);
+      padding: 1px 7px;
+      border-radius: 20px;
+    }
+
+    /* ── RIGHT AD SIDEBAR ── */
+    .ad-sidebar {
+      position: sticky;
+      top: 80px;
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .ad-block {
+      border: 1.5px dashed var(--ad-border);
+      border-radius: 12px;
+      background: var(--ad-bg);
+      padding: 20px 16px;
+      text-align: center;
+    }
+
+    .ad-block .ad-top-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray-500);
+      margin-bottom: 10px;
+    }
+
+    .ad-block .ad-placeholder {
+      width: 100%;
+      height: 160px;
+      background: linear-gradient(135deg, #f0efec 0%, #e8e7e2 100%);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--gray-500);
+      font-size: 13px;
+    }
+
+    .ad-block .ad-placeholder span {
+      font-size: 24px;
+    }
+
+    .ad-block .ad-contact {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .ad-block .ad-contact a {
+      color: var(--accent-warm);
+      text-decoration: none;
+    }
+
+    /* ── TOOL FEED ── */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid var(--gray-200);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--gray-900);
+    }
+
+    .section-title .icon { font-size: 20px; }
+
+    .section-more {
+      font-size: 13px;
+      color: var(--gray-500);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .section-more:hover { color: var(--accent-warm); }
+
+    /* ── CARD GRID ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border: 1.5px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px;
+      background: var(--white);
+      cursor: pointer;
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.15s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: var(--gray-300);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .card-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      background: var(--gray-50);
+    }
+
+    .card-info { flex: 1; min-width: 0; }
+
+    .card-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-900);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-domain {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--gray-700);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11.5px;
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .badge-hot {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 10.5px;
+      font-weight: 600;
+      background: #fff0e8;
+      color: var(--accent-warm);
+      padding: 2px 7px;
+      border-radius: 20px;
+      border: 1px solid #f5cba7;
+    }
+
+    .badge-new {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 10.5px;
+      font-weight: 600;
+      background: #e8f4ff;
+      color: var(--accent-blue);
+      padding: 2px 7px;
+      border-radius: 20px;
+      border: 1px solid #b8d9f7;
+    }
+
+    /* In-feed ad card */
+    .card-ad {
+      border: 1.5px dashed var(--ad-border);
+      background: var(--ad-bg);
+    }
+
+    .card-ad .ad-badge {
+      font-size: 10px;
+      background: #fff8e1;
+      color: #b8860b;
+      border: 1px solid #e8d9a0;
+      padding: 2px 7px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .card-ad .card-name { color: var(--gray-700); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--gray-200);
+      padding: 32px 0;
+      text-align: center;
+      color: var(--gray-500);
+      font-size: 13px;
+    }
+
+    footer a { color: var(--gray-500); text-decoration: none; }
+    footer a:hover { color: var(--accent-warm); }
+    footer .footer-links { display: flex; justify-content: center; gap: 24px; margin-top: 10px; }
+
+    /* ── SEARCH HIDDEN ── */
+    .hidden { display: none !important; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .content { grid-template-columns: 200px 1fr; }
+      .ad-sidebar { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 16px; gap: 16px; }
+      .page-wrap { padding: 0 16px; }
+      .content { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .hero { padding: 36px 0 24px; }
+      .stats { gap: 24px; }
+    }
+
+    /* ── FADE IN ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section { animation: fadeUp 0.4s ease both; }
+    .section:nth-child(2) { animation-delay: 0.05s; }
+    .section:nth-child(3) { animation-delay: 0.1s; }
+    .section:nth-child(4) { animation-delay: 0.15s; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">AI<span>导航</span></a>
+    <div class="search-wrap">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="搜索 AI 工具..." oninput="filterTools()" />
+    </div>
+    <div class="header-actions">
+      <button class="btn-submit" onclick="alert('提交功能即将上线！')">+ 提交工具</button>
+    </div>
+  </div>
+</header>
+
+<!-- TOP BANNER AD -->
+<div class="hero-ad">
+  <span class="ad-label">广告</span>
+  🚀 <a href="#">YourProduct.ai</a> — 这里是横幅广告位，欢迎投放，联系 <a href="mailto:ad@ainav.com">ad@ainav.com</a>
+</div>
+
+<!-- HERO -->
+<div class="page-wrap">
+  <div class="hero">
+    <h1>发现<em>最好的</em> AI 工具</h1>
+    <p>精选全球优质 AI 工具，按类别整理，帮你找到最适合的那一个。</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">收录工具</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">18</div>
+      <div class="stat-label">分类</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">每日</div>
+      <div class="stat-label">更新</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">免费</div>
+      <div class="stat-label">访问</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT GRID -->
+  <div class="content">
+
+    <!-- LEFT SIDEBAR: CATEGORIES -->
+    <aside class="sidebar">
+      <div class="sidebar-title">分类导航</div>
+      <ul class="cat-list" id="catList">
+        <li><a href="#all" class="active" onclick="filterCat('all',this)"><span class="cat-icon">🏠</span>全部工具<span class="cat-count">24</span></a></li>
+        <li><a href="#chat" onclick="filterCat('chat',this)"><span class="cat-icon">💬</span>AI 对话<span class="cat-count">4</span></a></li>
+        <li><a href="#write" onclick="filterCat('write',this)"><span class="cat-icon">✍️</span>写作助手<span class="cat-count">4</span></a></li>
+        <li><a href="#image" onclick="filterCat('image',this)"><span class="cat-icon">🎨</span>图像生成<span class="cat-count">4</span></a></li>
+        <li><a href="#video" onclick="filterCat('video',this)"><span class="cat-icon">🎬</span>视频创作<span class="cat-count">3</span></a></li>
+        <li><a href="#code" onclick="filterCat('code',this)"><span class="cat-icon">💻</span>编程开发<span class="cat-count">4</span></a></li>
+        <li><a href="#audio" onclick="filterCat('audio',this)"><span class="cat-icon">🎵</span>音频音乐<span class="cat-count">3</span></a></li>
+        <li><a href="#search" onclick="filterCat('search',this)"><span class="cat-icon">🔍</span>AI 搜索<span class="cat-count">2</span></a></li>
+      </ul>
+    </aside>
+
+    <!-- CENTER: TOOL CARDS -->
+    <main id="toolFeed">
+
+      <!-- SECTION: AI 对话 -->
+      <section class="section" data-cat="chat">
+        <div class="section-header">
+          <div class="section-title"><span class="icon">💬</span>AI 对话</div>
+          <a class="section-more" href="#">查看全部 →</a>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="https://claude.ai" target="_blank" data-cat="chat">
+            <span class="badge-hot">🔥 热门</span>
+            <div class="card-top">
+              <div class="card-logo">🟠</div>
+              <div class="card-info">
+                <div class="card-name">Claude</div>
+                <div class="card-domain">claude.ai</div>
+              </div>
+            </div>
+            <div class="card-desc">Anthropic 出品，以安全性和长文本理解著称，支持 200K token 上下文。</div>
+            <div class="card-tags"><span class="tag">对话</span><span class="tag">长文本</span><span class="tag">免费</span></div>
+          </a>
+
+          <a class="card" href="https://chat.openai.com" target="_blank" data-cat="chat">
+            <span class="badge-hot">🔥 热门</span>
+            <div class="card-top">
+              <div class="card-logo">🟢</div>
+              <div class="card-info">
+                <div class="card-name">ChatGPT</div>
+                <div class="card-domain">chat.openai.com</div>
+              </div>
+            </div>
+            <div class="card-desc">OpenAI 旗舰产品，GPT-4o 驱动，支持语音、图像多模态交互。</div>
+            <div class="card-tags"><span class="tag">对话</span><span class="tag">多模态</span></div>
+          </a>
+
+          <a class="card" href="https://gemini.google.com" target="_blank" data-cat="chat">
+            <div class="card-top">
+              <div class="card-logo">🔵</div>
+              <div class="card-info">
+                <div class="card-name">Gemini</div>
+                <div class="card-domain">gemini.google.com</div>
+              </div>
+            </div>
+            <div class="card-desc">Google DeepMind 出品，深度整合 Google 搜索和 Workspace 生态。</div>
+            <div class="card-tags"><span class="tag">对话</span><span class="tag">Google</span></div>
+          </a>
+
+          <a class="card" href="https://www.doubao.com" target="_blank" data-cat="chat">
+            <span class="badge-new">✨ 新上线</span>
+            <div class="card-top">
+              <div class="card-logo">🫧</div>
+              <div class="card-info">
+                <div class="card-name">豆包</div>
+                <div class="card-domain">doubao.com</div>
+              </div>
+            </div>
+            <div class="card-desc">字节跳动出品，中文理解能力强，功能覆盖写作、学习、娱乐多场景。</div>
+            <div class="card-tags"><span class="tag">中文</span><span class="tag">免费</span></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- IN-FEED AD -->
+      <div class="card card-ad" style="margin-bottom:48px;display:flex;align-items:center;gap:16px;">
+        <span class="ad-badge">广告</span>
+        <div>
+          <div class="card-name" style="margin-bottom:4px;">📢 广告位招租 · 300×90 信息流</div>
+          <div class="card-desc" style="margin:0;color:var(--gray-500);">此处为信息流广告位，日均曝光 10,000+，欢迎品牌合作。联系：<a href="mailto:ad@ainav.com" style="color:var(--accent-warm);">ad@ainav.com</a></div>
+        </div>
+      </div>
+
+      <!-- SECTION: 写作助手 -->
+      <section class="section" data-cat="write">
+        <div class="section-header">
+          <div class="section-title"><span class="icon">✍️</span>写作助手</div>
+          <a class="section-more" href="#">查看全部 →</a>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="https://www.notion.com/product/ai" target="_blank" data-cat="write">
+            <span class="badge-hot">🔥 热门</span>
+            <div class="card-top">
+              <div class="card-logo">📋</div>
+              <div class="card-info">
+                <div class="card-name">Notion AI</div>
+                <div class="card-domain">notion.com</div>
+              </div>
+            </div>
+            <div class="card-desc">嵌入 Notion 工作流的 AI 写作工具，无缝生成、润色和总结文档内容。</div>
+            <div class="card-tags"><span class="tag">写作</span><span class="tag">笔记</span><span class="tag">团队</span></div>
+          </a>
+
+          <a class="card" href="https://jasper.ai" target="_blank" data-cat="write">
+            <div class="card-top">
+              <div class="card-logo">🖊️</div>
+              <div class="card-info">
+                <div class="card-name">Jasper</div>
+                <div class="card-domain">jasper.ai</div>
+              </div>
+            </div>
+            <div class="card-desc">专注营销内容创作的 AI 写作平台，提供 50+ 内容模板，适合团队协作。</div>
+            <div class="card-tags"><span class="tag">营销</span><span class="tag">内容</span></div>
+          </a>
+
+          <a class="card" href="https://copy.ai" target="_blank" data-cat="write">
+            <div class="card-top">
+              <div class="card-logo">📝</div>
+              <div class="card-info">
+                <div class="card-name">Copy.ai</div>
+                <div class="card-domain">copy.ai</div>
+              </div>
+            </div>
+            <div class="card-desc">快速生成广告文案、邮件、社交媒体帖子，操作简单，新手友好。</div>
+            <div class="card-tags"><span class="tag">文案</span><span class="tag">免费试用</span></div>
+          </a>
+
+          <a class="card" href="https://www.grammarly.com" target="_blank" data-cat="write">
+            <div class="card-top">
+              <div class="card-logo">✅</div>
+              <div class="card-info">
+                <div class="card-name">Grammarly</div>
+                <div class="card-domain">grammarly.com</div>
+              </div>
+            </div>
+            <div class="card-desc">AI 驱动的英文写作助手，实时检查语法、风格，提供改写建议。</div>
+            <div class="card-tags"><span class="tag">英文</span><span class="tag">语法</span></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- SECTION: 图像生成 -->
+      <section class="section" data-cat="image">
+        <div class="section-header">
+          <div class="section-title"><span class="icon">🎨</span>图像生成</div>
+          <a class="section-more" href="#">查看全部 →</a>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="https://www.midjourney.com" target="_blank" data-cat="image">
+            <span class="badge-hot">🔥 热门</span>
+            <div class="card-top">
+              <div class="card-logo">🌊</div>
+              <div class="card-info">
+                <div class="card-name">Midjourney</div>
+                <div class="card-domain">midjourney.com</div>
+              </div>
+            </div>
+            <div class="card-desc">艺术质感最高的 AI 图像工具，V6 版本写实与艺术风格俱佳，设计师首选。</div>
+            <div class="card-tags"><span class="tag">图像</span><span class="tag">艺术</span><span class="tag">付费</span></div>
+          </a>
+
+          <a class="card" href="https://openai.com/dall-e-3" target="_blank" data-cat="image">
+            <div class="card-top">
+              <div class="card-logo">🎭</div>
+              <div class="card-info">
+                <div class="card-name">DALL·E 3</div>
+                <div class="card-domain">openai.com</div>
+              </div>
+            </div>
+            <div class="card-desc">OpenAI 出品，提示词理解准确，可通过 ChatGPT Plus 直接使用，文字融合极佳。</div>
+            <div class="card-tags"><span class="tag">图像</span><span class="tag">文字融合</span></div>
+          </a>
+
+          <a class="card" href="https://stability.ai" target="_blank" data-cat="image">
+            <div class="card-top">
+              <div class="card-logo">🌀</div>
+              <div class="card-info">
+                <div class="card-name">Stable Diffusion</div>
+                <div class="card-domain">stability.ai</div>
+              </div>
+            </div>
+            <div class="card-desc">开源图像生成模型，可本地部署，生态丰富，自定义空间极大。</div>
+            <div class="card-tags"><span class="tag">开源</span><span class="tag">本地</span><span class="tag">免费</span></div>
+          </a>
+
+          <a class="card" href="https://www.canva.com/ai-image-generator/" target="_blank" data-cat="image">
+            <span class="badge-new">✨ 新上线</span>
+            <div class="card-top">
+              <div class="card-logo">🖼️</div>
+              <div class="card-info">
+                <div class="card-name">Canva AI</div>
+                <div class="card-domain">canva.com</div>
+              </div>
+            </div>
+            <div class="card-desc">Canva 内置 AI 图像生成，结合设计模板，适合快速制作社媒配图。</div>
+            <div class="card-tags"><span class="tag">设计</span><span class="tag">模板</span><span class="tag">免费</span></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- SECTION: 视频创作 -->
+      <section class="section" data-cat="video">
+        <div class="section-header">
+          <div class="section-title"><span class="icon">🎬</span>视频创作</div>
+          <a class="section-more" href="#">查看全部 →</a>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="https://sora.com" target="_blank" data-cat="video">
+            <span class="badge-hot">🔥 热门</span>
+            <div class="card-top">
+              <div class="card-logo">🌅</div>
+              <div class="card-info">
+                <div class="card-name">Sora</div>
+                <div class="card-domain">sora.com</div>
+              </div>
+            </div>
+            <div class="card-desc">OpenAI 文生视频旗舰产品，最长可生成 20 秒高清视频，物理真实感强。</div>
+            <div class="card-tags"><span class="tag">文生视频</span><span class="tag">高清</span></div>
+          </a>
+
+          <a class="card" href="https://runwayml.com" target="_blank" data-cat="video">
+            <div class="card-top">
+              <div class="card-logo">🎞️</div>
+              <div class="card-info">
+                <div class="card-name">Runway</div>
+                <div class="card-domain">runwayml.com</div>
+              </div>
+            </div>
+            <div class="card-desc">专业视频 AI 工具，支持图生视频、视频编辑、背景移除等多种创作功能。</div>
+            <div class="card-tags"><span class="tag">视频编辑</span><span class="tag">专业</span></div>
+          </a>
+
+          <a class="card" href="https://pika.art" target="_blank" data-cat="video">
+            <span class="badge-new">✨ 新上线</span>
+            <div class="card-top">
+              <div class="card-logo">⚡</div>
+              <div class="card-info">
+                <div class="card-name">Pika</div>
+                <div class="card-domain">pika.art</div>
+              </div>
+            </div>
+            <div class="card-desc">简单易用的视频生成工具，支持文本和图片驱动生成短视频，效果惊艳。</div>
+            <div class="card-tags"><span class="tag">视频</span><span class="tag">免费试用</span></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- SECTION: 编程开发 -->
+      <section class="section" data-cat="code">
+        <div class="section-header">
+          <div class="section-title"><span class="icon">💻</span>编程开发</div>
+          <a class="section-more" href="#">查看全部 →</a>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="https://github.com/features/copilot" target="_blank" data-cat="code">
+            <span class="badge-hot">🔥 热门</span>
+            <div class="card-top">
+              <div class="card-logo">🐱</div>
+              <div class="card-info">
+                <div class="card-name">GitHub Copilot</div>
+                <div class="card-domain">github.com</div>
+              </div>
+            </div>
+            <div class="card-desc">最流行的 AI 编程助手，深度整合 VS Code，代码补全精准，支持多语言。</div>
+            <div class="card-tags"><span class="tag">代码补全</span><span class="tag">VS Code</span></div>
+          </a>
+
+          <a class="card" href="https://cursor.com" target="_blank" data-cat="code">
+            <span class="badge-hot">🔥 热门</span>
+            <div class="card-top">
+              <div class="card-logo">🖱️</div>
+              <div class="card-info">
+                <div class="card-name">Cursor</div>
+                <div class="card-domain">cursor.com</div>
+              </div>
+            </div>
+            <div class="card-desc">AI-first 代码编辑器，可对话修改整个代码库，比 Copilot 更深度的 AI 整合。</div>
+            <div class="card-tags"><span class="tag">编辑器</span><span class="tag">全库对话</span></div>
+          </a>
+
+          <a class="card" href="https://v0.dev" target="_blank" data-cat="code">
+            <span class="badge-new">✨ 新上线</span>
+            <div class="card-top">
+              <div class="card-logo">▲</div>
+              <div class="card-info">
+                <div class="card-name">v0 by Vercel</div>
+                <div class="card-domain">v0.dev</div>
+              </div>
+            </div>
+            <div class="card-desc">Vercel 出品，用自然语言生成 React 组件和完整页面，前端开发效率神器。</div>
+            <div class="card-tags"><span class="tag">前端</span><span class="tag">React</span></div>
+          </a>
+
+          <a class="card" href="https://claude.ai/code" target="_blank" data-cat="code">
+            <div class="card-top">
+              <div class="card-logo">⌨️</div>
+              <div class="card-info">
+                <div class="card-name">Claude Code</div>
+                <div class="card-domain">claude.ai</div>
+              </div>
+            </div>
+            <div class="card-desc">Anthropic 出品的终端编程助手，可读写文件、运行命令，真正的 Agentic 编程。</div>
+            <div class="card-tags"><span class="tag">终端</span><span class="tag">Agentic</span></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- SECTION: 音频音乐 -->
+      <section class="section" data-cat="audio">
+        <div class="section-header">
+          <div class="section-title"><span class="icon">🎵</span>音频 & 音乐</div>
+          <a class="section-more" href="#">查看全部 →</a>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="https://suno.com" target="_blank" data-cat="audio">
+            <span class="badge-hot">🔥 热门</span>
+            <div class="card-top">
+              <div class="card-logo">🎶</div>
+              <div class="card-info">
+                <div class="card-name">Suno</div>
+                <div class="card-domain">suno.com</div>
+              </div>
+            </div>
+            <div class="card-desc">输入歌词和风格即可生成完整歌曲，质量令人惊艳，每日免费额度可用。</div>
+            <div class="card-tags"><span class="tag">音乐生成</span><span class="tag">免费</span></div>
+          </a>
+
+          <a class="card" href="https://elevenlabs.io" target="_blank" data-cat="audio">
+            <div class="card-top">
+              <div class="card-logo">🔊</div>
+              <div class="card-info">
+                <div class="card-name">ElevenLabs</div>
+                <div class="card-domain">elevenlabs.io</div>
+              </div>
+            </div>
+            <div class="card-desc">最逼真的 AI 语音合成，支持声音克隆，多语言朗读，播客配音首选。</div>
+            <div class="card-tags"><span class="tag">语音合成</span><span class="tag">克隆</span></div>
+          </a>
+
+          <a class="card" href="https://www.udio.com" target="_blank" data-cat="audio">
+            <span class="badge-new">✨ 新上线</span>
+            <div class="card-top">
+              <div class="card-logo">🎙️</div>
+              <div class="card-info">
+                <div class="card-name">Udio</div>
+                <div class="card-domain">udio.com</div>
+              </div>
+            </div>
+            <div class="card-desc">与 Suno 并列的 AI 音乐生成新星，在流行和摇滚风格上表现尤为突出。</div>
+            <div class="card-tags"><span class="tag">音乐</span><span class="tag">免费试用</span></div>
+          </a>
+        </div>
+      </section>
+
+      <!-- SECTION: AI 搜索 -->
+      <section class="section" data-cat="search">
+        <div class="section-header">
+          <div class="section-title"><span class="icon">🔍</span>AI 搜索</div>
+          <a class="section-more" href="#">查看全部 →</a>
+        </div>
+        <div class="card-grid">
+          <a class="card" href="https://www.perplexity.ai" target="_blank" data-cat="search">
+            <span class="badge-hot">🔥 热门</span>
+            <div class="card-top">
+              <div class="card-logo">🔮</div>
+              <div class="card-info">
+                <div class="card-name">Perplexity</div>
+                <div class="card-domain">perplexity.ai</div>
+              </div>
+            </div>
+            <div class="card-desc">AI 搜索引擎标杆，实时联网并生成带引用来源的答案，信息准确可溯源。</div>
+            <div class="card-tags"><span class="tag">搜索</span><span class="tag">实时</span><span class="tag">免费</span></div>
+          </a>
+
+          <a class="card" href="https://you.com" target="_blank" data-cat="search">
+            <div class="card-top">
+              <div class="card-logo">🌐</div>
+              <div class="card-info">
+                <div class="card-name">You.com</div>
+                <div class="card-domain">you.com</div>
+              </div>
+            </div>
+            <div class="card-desc">兼顾传统搜索和 AI 对话的混合搜索引擎，支持代码、写作等专业模式。</div>
+            <div class="card-tags"><span class="tag">搜索</span><span class="tag">多模式</span></div>
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- RIGHT AD SIDEBAR -->
+    <aside class="ad-sidebar">
+      <div class="ad-block">
+        <div class="ad-top-label">广告</div>
+        <div class="ad-placeholder">
+          <span>📣</span>
+          <div>广告位 200×160</div>
+        </div>
+        <div class="ad-contact">投放咨询 <a href="mailto:ad@ainav.com">联系我们</a></div>
+      </div>
+
+      <div class="ad-block">
+        <div class="ad-top-label">广告</div>
+        <div class="ad-placeholder" style="height:240px;">
+          <span>🎯</span>
+          <div>广告位 200×240</div>
+        </div>
+        <div class="ad-contact">投放咨询 <a href="mailto:ad@ainav.com">联系我们</a></div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2025 AI导航 · 精选全球优质 AI 工具</div>
+  <div class="footer-links">
+    <a href="#">关于我们</a>
+    <a href="#">提交工具</a>
+    <a href="#">广告合作</a>
+    <a href="#">友情链接</a>
+    <a href="#">隐私政策</a>
+  </div>
+</footer>
+
+<script>
+  const allSections = document.querySelectorAll('section[data-cat]');
+
+  function filterCat(cat, el) {
+    // update active state
+    document.querySelectorAll('#catList a').forEach(a => a.classList.remove('active'));
+    el.classList.add('active');
+
+    allSections.forEach(sec => {
+      if (cat === 'all' || sec.dataset.cat === cat) {
+        sec.style.display = '';
+      } else {
+        sec.style.display = 'none';
+      }
+    });
+    return false;
+  }
+
+  function filterTools() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    if (!q) {
+      allSections.forEach(s => s.style.display = '');
+      document.querySelectorAll('.card:not(.card-ad)').forEach(c => c.style.display = '');
+      return;
+    }
+
+    allSections.forEach(sec => {
+      const cards = sec.querySelectorAll('.card:not(.card-ad)');
+      let anyVisible = false;
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(q)) {
+          card.style.display = '';
+          anyVisible = true;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      sec.style.display = anyVisible ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
